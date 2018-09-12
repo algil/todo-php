@@ -1,9 +1,6 @@
 <?php
 
-$database = require 'bootstrap.php';
-require 'Task.php';
+$database = require 'core/bootstrap.php';
 
-$tasks = $database->selectAll('tasks', 'Task');
-
-
-require 'index.view.php';
+require Router::load('routes.php')
+        ->getControllerByUri(Request::uri());
