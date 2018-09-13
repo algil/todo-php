@@ -3,4 +3,4 @@
 $database = require 'core/bootstrap.php';
 
 require Router::load('routes.php')
-        ->getControllerByUri(Request::uri());
+        ->getControllerByUri(Request::uri(), Request::method());
