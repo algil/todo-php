@@ -1,3 +1,7 @@
 <?php
 
-echo 'Hi ' . $_REQUEST['name'];
+$app['database']->insert('users', [
+  'name' => $_POST['name']
+]);
+
+header('Location: /');

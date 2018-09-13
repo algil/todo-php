@@ -1,6 +1,7 @@
 <?php
 
 require 'core/Task.php';
-$tasks = $app['database']->selectAll('tasks', 'Task');
+$tasks = $app['database']->selectAll('tasks');
+$users = $app['database']->selectAll('users');
 
 require 'views/index.view.php';
