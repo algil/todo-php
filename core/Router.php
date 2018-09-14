@@ -29,12 +29,26 @@ class Router
     $this->routes = $routes;
   }
 
-  public function getControllerByUri($uri, $requestType)
+  public function direct($uri, $requestType)
   {
-    if (array_key_exists($uri, $this->routes[$requestType])) {
-      return $this->routes[$requestType][$uri];
+    if (!array_key_exists($uri, $this->routes[$requestType])) {
+      throw new Exception('No route defined for this URI.');
     }
 
-    throw new Exception('No route defined for this URI.');
+    $this->callAction(...explode('@', $this->routes[$requestType][$uri]));
+
+    return $this->routes[$requestType][$uri];
+    
+  }
+
+  protected function callAction($controller, $action)
+  {
+    $controller = new $controller;
+
+    if (!method_exists($controller, $action)) {
+      throw new Exception("{$controller} does not respond to the {$action} action.");
+    }
+
+    return $controller->$action();
   }
 }
